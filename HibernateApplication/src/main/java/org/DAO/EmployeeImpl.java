@@ -1,4 +1,4 @@
-package org.services;
+package org.DAO;
 
 import java.io.Serializable;
 
@@ -14,7 +14,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-public class EmployeeServices {
+public class EmployeeImpl {
 	SessionFactory sessionFactory = HibernateUtils.getSessionFactory();
 
 	public void addRecords(Employee employee, Salary salary, Addresses address) {
@@ -35,17 +35,16 @@ public class EmployeeServices {
 	public Employee viewRecordByCriteria() {
 		Session session = sessionFactory.openSession();
 
-		Integer id = new Integer(1);
+	//	Integer id = new Integer(1);
 
 		try {
 			session.beginTransaction();
 
 			Criteria criteria = session.createCriteria(Employee.class);
-			Criteria criteria2 = criteria.createCriteria("salary");
+			Criteria criteria1 = criteria.createCriteria("salary");
 			// Showing data which is greater than 60000
-			criteria2.add(Restrictions.ge("salary", new Double(10000)));
-			// criteria.add(Restrictions.eq("employeeId", id));
-			Employee employee = (Employee) criteria2.uniqueResult();
+			criteria1.add(Restrictions.ge("salary", new Double(10000)));
+			Employee employee = (Employee) criteria1.uniqueResult();
 
 			if (employee != null) {
 				System.out.println(employee.getSalary().getSalary());
@@ -64,8 +63,6 @@ public class EmployeeServices {
 
 	public Employee viewRecordByHQL() {
 		Session session = sessionFactory.openSession();
-
-		// creating transaction object
 		Transaction t = session.beginTransaction();
 
 		Query query = session.createQuery("from Employee where salary.salary>10000");

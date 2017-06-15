@@ -9,7 +9,7 @@ import org.Entity.Addresses;
 import org.Entity.Employee;
 import org.Entity.Salary;
 import org.Util.HibernateUtils;
-import org.services.EmployeeServices;
+import org.DAO.EmployeeImpl;
 
 public class EmployeeApp {
 
@@ -25,13 +25,13 @@ public class EmployeeApp {
 			newemployee.setSalary(employeesalary);
 		 
 	
-			EmployeeServices employeeServices = new EmployeeServices();
-			employeeServices.addRecords(newemployee, employeesalary, address);
-			System.out.println("Name: "+employeeServices.viewRecordByCriteria().getFirstName() + " "
-					+ employeeServices.viewRecordByCriteria().getLastName());
-			System.err.println("Salary: "+employeeServices.viewRecordByCriteria().getSalary().getSalary());
-			System.out.println(employeeServices.viewRecordByHQL().getFirstName() + " "
-					+ employeeServices.viewRecordByHQL().getLastName());
+			EmployeeImpl employeeimpl = new EmployeeImpl();
+			employeeimpl.addRecords(newemployee, employeesalary, address);
+			System.out.println("Name: "+employeeimpl.viewRecordByCriteria().getFirstName() + " "
+					+ employeeimpl.viewRecordByCriteria().getLastName());
+			System.err.println("Salary: "+employeeimpl.viewRecordByCriteria().getSalary().getSalary());
+			System.out.println(employeeimpl.viewRecordByHQL().getFirstName() + " "
+					+ employeeimpl.viewRecordByHQL().getLastName());
 			 
 
    
